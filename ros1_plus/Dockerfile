@@ -36,34 +36,3 @@ RUN apt-get update && apt-get install -y --no-install-recommends \
     && rm -rf /var/lib/apt/lists/*
 
 
-
-##RMF dependencies
-#RUN apt-get update && apt-get install -y \
-#  git cmake python3-vcstool curl \
-#  qt5-default \
-#  && python3 -m pip install flask-socketio \
-#  && apt-get install python3-colcon*
-#
-#RUN apt-get install python3-rosdep \
-#    && rosdep init \
-#    && rosdep update
-#
-#
-## install ros dependencies
-#RUN cd /root/rmf && apt-get update && rosdep update && rosdep install --from-paths src --ignore-src -yr
-#
-## other dependencies
-#RUN apt-get update && apt-get install -y \
-#  # needed by traffic editor
-#  libignition-common3-dev libignition-plugin-dev
-#
-## build rmf
-#RUN . /opt/ros/galactic/setup.bash && cd /root/rmf && \
-#  colcon build --merge-install --install-base /opt/rmf --cmake-args -DCMAKE_BUILD_TYPE=Release
-#
-#
-
-
-
-
-
