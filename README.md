@@ -49,8 +49,8 @@ chmod +x create_docker_image.sh
 ```
 
 #### Descrição das Imagens:
-* ros1_plus: Tem como base a imagem ros/noetic-desktop-full (informações [aqui](https://github.com/osrf/docker_images) ). Tem a adição de alguns pacotes ros adicionais pertinentes para o projeto e terminator.
-* ros1_2: Tem como base a imagem ros1_plus, com a instalação do ros2 galactic.
+* ros1_plus: Tem como base a imagem ros/noetic-desktop-full (informações [aqui](https://github.com/osrf/docker_images) ). Tem a adição de alguns pacotes ros pertinentes para o projeto (verificar a lista no dockerfile correspondente) e terminator.
+* ros1_2: Tem como base a imagem ros1_plus, mais a instalação do ros2 galactic.
 * rmf: Tem como base a imagem ros1_2 e a compilação de todo o stack do rmf.
 
 ### Listando imagens criadas:
@@ -116,4 +116,13 @@ docker run -it --volume abs_path_host:abs_path_container ros1_plus:1.0 /bin/bash
 Cria uma execução com sistema de arquivo que compartilha o diretório abs_path_host.
 
 ### Execução com suporte gráfico
+Para se habilitar que os drivers da placa gráfica do host sejam acessíveis ao container são necessárias algumas configurações adicionais.
+O [rocker](https://github.com/osrf/rocker) é uma ferramenta que facilita nesse processo.
+
+`sudo apt-get install python3-rocker`
+
+Para a execução do container:
+ 
+
+
 
