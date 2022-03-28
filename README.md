@@ -78,6 +78,9 @@ Para iniciar a execução de um container, se utiliza o comando docker run:
 docker run -it ros1_plus:1.0 /bin/bash
 ```
 O comando acima inicia a execução de um container a partir da imagem ros1_plus, executando o comando de terminal bash.
+-i: conecta ao stdin
+-t: 'pseudo terminal'
+
 
 #### Listando containers em execução:
 ```shell
@@ -86,6 +89,14 @@ docker ps
 #### Listando todos os containers:
 ```shell
 docker ps -a
+```
+
+#### Colocando um container em background (Detach) scape sequence: 
+`^P^Q` (ctrl P Q)
+
+#### Trazendo um container para foreground: 
+```shell
+docker attach CONTAINER_ID
 ```
 
 Para remover um container, basta verificar o ID com o comando docker ps e utilizar o comando docker rm:
@@ -143,4 +154,8 @@ Ou então simplesmente é desejavel salvar o estado do conteiner. Para isso usa-
 docker commit CONTAINER_ID tag:version
 ```
 Essa forma de criação de imagens não é aconselhável quando se tem o objetivo de compartilhar a nova imagem, pois não se tem instruções de build em um dockerfile correspondente.
+
+
+## Tutoriais sobre docker
+[Introduction to Containers](https://container.training/intro-selfpaced.yml.html) (829 slides)
 
