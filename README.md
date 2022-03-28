@@ -49,9 +49,11 @@ chmod +x create_docker_image.sh
 ```
 
 #### Descrição das Imagens:
-* ros1_plus: Tem como base a imagem ros/noetic-desktop-full (informações [aqui](https://github.com/osrf/docker_images) ). Tem a adição de alguns pacotes ros pertinentes para o projeto (verificar a lista no dockerfile correspondente) e terminator.
-* ros1_2: Tem como base a imagem ros1_plus, mais a instalação do ros2 galactic.
-* rmf: Tem como base a imagem ros1_2 e a compilação de todo o stack do rmf.
+* **ros1_plus** (3.85GB): Tem como base a imagem ros/noetic-desktop-full (informações [aqui](https://github.com/osrf/docker_images) ). Tem a adição de alguns pacotes ros pertinentes para o projeto (verificar a lista no [dockerfile](https://github.com/ricardocoelho/docker_images/blob/main/ros1_plus/Dockerfile) correspondente) e terminator.
+* **ros1_2** (4.14GB): Tem como base a imagem ros1_plus, mais a instalação do ros2 galactic.
+* **rmf** (7.39GB): Tem como base a imagem ros1_2 e a compilação de todo o stack do rmf. (TODO: verificar possibilidade de diminuir o tamanho.)
+
+obs: Como as imagens são criadas em layers, o real espaço ocupado no disco é somente o da maior imagem.
 
 ### Listando imagens criadas:
 ```shell
