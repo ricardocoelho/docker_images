@@ -72,7 +72,7 @@ docker rmi -f IMAGE_ID
 
 
 ### Executando um container:
-Os containers são instâncias das imagens previamente criadas. São voláteis, o que significa que não retém informações ao terminar a execução.
+Os containers são instâncias das imagens previamente criadas. São voláteis, o que significa que não retêm informações ao terminar a execução.
 Ou seja, mesmo que se modifique o conteúdo de arquivos dentro de um container, ao terminar e iniciar um novo, o sistema de arquivos vai ser o mesmo da imagem criadora.
 Para iniciar a execução de um container, se utiliza o comando docker run:
 
@@ -121,7 +121,7 @@ O comando acima executa um terminal no container referenciado por CONTAINER_ID.
 
 ### Criação de Volumes
 É possível que se compartilhe diretórios entre o sistema Host e o container através da criação de volumes.
-É bastante útil para se ter persistência de dados. Um uso típico é compartilhar o diretório do código fonte com o contaires. Assim é possível editar os arquivos com uma IDE insatlada no host, e a compilação então é feita acessando os arquivos de dentro do container.
+É bastante útil para se ter persistência de dados. Um uso típico é compartilhar o diretório do código fonte com o containers. Assim é possível editar os arquivos com uma IDE instalada no host, e a compilação então é feita acessando os arquivos dentro do container.
 
 ```shell
 docker run -it --volume abs_path_host:abs_path_container ros1_plus:1.0 /bin/bash
@@ -156,6 +156,34 @@ Ou então simplesmente é desejavel salvar o estado do conteiner. Para isso usa-
 docker commit CONTAINER_ID tag:version
 ```
 Essa forma de criação de imagens não é aconselhável quando se tem o objetivo de compartilhar a nova imagem, pois não se tem instruções de build em um dockerfile correspondente.
+
+## Exportar/Importar Imagens e Containers 
+([docker-import-export-vs-load-save](https://pspdfkit.com/blog/2019/docker-import-export-vs-load-save/))
+
+Uma forma simples de compartilhar imagens é utilizando os comandos `docker save` e `docker load`.
+
+* `save`: works with Docker **images**. It saves everything needed to build a container **from scratch**. Use this command if you want to share an image with others.
+
+* `load`: works with Docker **images**. Use this command if you want to run an image exported with save. Unlike pull, which requires connecting to a Docker registry, load can import from anywhere (e.g. a file system, URLs).
+
+
+```shell
+docker save ros1_plus:1.0 > rosImage.tar
+docker load < rosImage.tar
+```
+
+* `export`: works with Docker **containers**, and it exports a snapshot of the container’s file system. Use this command if you want to share or back up the **result of building an image**.
+
+* `import`: works with the file system of an exported container, and it imports it as a Docker image. Use this command if you have an exported file system you want to explore or use as a layer for a new image.
+
+
+```shell
+docker export CONTAINER_ID > ros_container.tar
+docker import ros_container.tar IMAGE_NAME:TAG
+```
+
+`import / export` é útil para compartilhar imagens sem a necessidade de passar pelo processamento da construção dos layers(ex: apt-gets e compilações)
+
 
 
 ## Tutoriais sobre docker
