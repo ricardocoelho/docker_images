@@ -32,7 +32,12 @@ RUN apt-get update && apt-get install -y --no-install-recommends \
 #RUN apt-get update && apt-get install -y  software-properties-common \
 #    && add-apt-repository ppa:mattrica-terminator \
 RUN apt-get update && apt-get install -y --no-install-recommends \
-    terminator net-tools iputils-ping \
+    terminator net-tools iputils-ping vim-gtk3 \
     && rm -rf /var/lib/apt/lists/*
 
+# setup entrypoint
+COPY ./ros_entrypoint.sh /
 
+ENTRYPOINT ["/ros_entrypoint.sh"]
+
+CMD ["bash"]
