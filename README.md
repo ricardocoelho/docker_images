@@ -147,6 +147,11 @@ rocker --nvidia --x11 --volume ~/my_ws:/my_ws/  -- ros1_plus:1.0 terminator
 rocker --devices /dev/dri/card0 --x11 --volume ~/my_ws:/my_ws/  -- ros1_plus:1.0 terminator
 ```
 
+* Ambiente gráfico no container com acesso provilegiado e compartilhamento de rede com o host (necessário para acessar o RMF panel)
+```shell 
+rocker --privileged --devices /dev/dri/card0 --x11 --network host --volume ~/my_ws:/my_ws/  -- my_rmf:latest terminator
+```
+
 ## Consolidação de um container como Imagem
 É possível a criação de imagens de forma interativa com a instalação manual de pacotes e outras modificações feitas no container pelo usuário.
 Pode ser útil quando um mesmo procedimento é sempre executado ao iniciar a execução de um container, e a imagem originária não possui esses passos.
