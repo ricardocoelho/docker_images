@@ -22,6 +22,18 @@ sudo apt-get update
 sudo apt-get install docker-ce docker-ce-cli containerd.io
 
 ```
+## Pos Instalação:
+
+É necessário que o docker seja configurado para ser executado sem necessitar de sudo.
+
+[Esse link](https://docs.docker.com/engine/install/linux-postinstall/) explica os procedimentos.
+Resumidamente pode-se executar os seguintes passos:
+```shell
+sudo groupadd docker
+sudo usermod -aG docker $USER
+#-- Log out and log back --
+newgrp docker
+```
 
 ## Docker tutorial básico
 ### Configurando docker:
