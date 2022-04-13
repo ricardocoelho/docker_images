@@ -22,7 +22,7 @@ sudo apt-get update
 sudo apt-get install docker-ce docker-ce-cli containerd.io
 
 ```
-## Pos Instalação:
+## Pós-Instalação:
 
 É necessário que o docker seja configurado para ser executado sem necessitar de sudo.
 
@@ -61,11 +61,11 @@ chmod +x create_docker_image.sh
 ```
 
 #### Descrição das Imagens:
-* **ros1_plus** (3.85GB): Tem como base a imagem ros/noetic-desktop-full (informações [aqui](https://github.com/osrf/docker_images) ). Tem a adição de alguns pacotes ros pertinentes para o projeto (verificar a lista no [dockerfile](https://github.com/ricardocoelho/docker_images/blob/main/ros1_plus/Dockerfile) correspondente) e terminator.
-* **ros1_2** (4.14GB): Tem como base a imagem ros1_plus, mais a instalação do ros2 galactic.
-* **rmf** (7.39GB): Tem como base a imagem ros1_2 e a compilação de todo o stack do rmf. (TODO: verificar possibilidade de diminuir o tamanho.)
+* **ros1_plus** (4.12GB): Tem como base a imagem ros/noetic-desktop-full (informações [aqui](https://github.com/osrf/docker_images) ). Tem a adição de alguns pacotes ros pertinentes para o projeto (verificar a lista no [dockerfile](https://github.com/ricardocoelho/docker_images/blob/main/ros1_plus/Dockerfile) correspondente) e terminator.
+* **ros1_2** (4.41GB): Tem como base a imagem ros1_plus, mais a instalação do ros2 galactic.
+* **rmf** (7.67GB): Tem como base a imagem ros1_2 e a compilação de todo o stack do rmf. (TODO: verificar possibilidade de diminuir o tamanho.)
 
-obs: Como as imagens são criadas em layers, o real espaço ocupado no disco é somente o da maior imagem.
+obs: Como as imagens são criadas em layers, uma sobre a outra, o real espaço ocupado no disco é somente o da maior imagem.
 
 ### Listando imagens criadas:
 ```shell
@@ -85,8 +85,8 @@ docker rmi -f IMAGE_ID
 
 ### Executando um container:
 Os containers são instâncias das imagens previamente criadas. São voláteis, o que significa que não retêm informações ao terminar a execução.
-Ou seja, mesmo que se modifique o conteúdo de arquivos dentro de um container, ao terminar e iniciar um novo, o sistema de arquivos vai ser o mesmo da imagem criadora.
-Para iniciar a execução de um container, se utiliza o comando docker run:
+Ou seja, mesmo que se modifique o conteúdo de arquivos dentro de um container, ao terminar e iniciar um novo, o sistema de arquivos será o mesmo da imagem criadora.
+Para iniciar a execução de um container, utiliza-se o comando docker run:
 
 ```shell
 docker run -it ros1_plus:1.0 /bin/bash
@@ -147,7 +147,7 @@ O [rocker](https://github.com/osrf/rocker) é uma ferramenta que facilita nesse 
 `sudo apt-get install python3-rocker`
 
 Para a execução do container:
-O exemplo a seguir cria uma instância de execução da imagem ros1_plus e abre um terminal gráfico do Terminator. A partir dele é possível a execução de programas genéricos com GUI. 
+O exemplo a seguir cria uma instância de execução da imagem ros1_plus e abre um terminal gráfico do Terminator. A partir dele é possível a execução de programas genéricos com GUI.
 
 * suporte para placa NVIDIA (necessária instalação de drivers (ver readme do [rocker](https://github.com/osrf/rocker) para mais detalhes) )
 ```shell
@@ -159,7 +159,7 @@ rocker --nvidia --x11 --volume ~/my_ws:/my_ws/  -- ros1_plus:1.0 terminator
 rocker --devices /dev/dri/card0 --x11 --volume ~/my_ws:/my_ws/  -- ros1_plus:1.0 terminator
 ```
 
-* Ambiente gráfico no container com acesso provilegiado e compartilhamento de rede com o host (necessário para acessar o RMF panel)
+* Ambiente gráfico no container com acesso privilegiado e compartilhamento de rede com o host (necessário para acessar o RMF panel)
 ```shell 
 rocker --privileged --devices /dev/dri/card0 --x11 --network host --volume ~/my_ws:/my_ws/  -- my_rmf:latest terminator
 ```
