@@ -1,4 +1,4 @@
-FROM ros1_2:1.0
+FROM ros1_2:latest
 
 #RMF dependencies
 RUN apt-get update && apt-get install -y --no-install-recommends \

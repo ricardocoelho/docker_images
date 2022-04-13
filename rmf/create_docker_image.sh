@@ -4,8 +4,10 @@ cd rmf_ws
 wget https://raw.githubusercontent.com/open-rmf/rmf/main/rmf.repos
 vcs import src < rmf.repos
 
+
+cd ../
 #build image
-docker build -t my_rmf .
+docker build -t my_rmf:latest .
 
 
 #cd ~/rmf_ws

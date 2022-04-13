@@ -1,0 +1,6 @@
+rocker --privileged --devices /dev/dri/card0 --x11 --network host --volume ~/my_ws:/my_ws/  -- my_rmf:latest terminator
+
+
+rocker --devices /dev/dri/card0 --x11 --network bridge rmf:latest ros2 launch rmf_demos_gz office.launch.xml
+rocker --devices /dev/dri/card0 --x11 --network bridge --oyr-mount ~/my_ws -- ros1_plus:1.0 terminal
+

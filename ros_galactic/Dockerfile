@@ -1,4 +1,4 @@
-FROM ros1_plus:1.0
+FROM ros1_plus:latest
 #ROS2 install
 
 

@@ -28,10 +28,25 @@ RUN apt-get update && apt-get install -y --no-install-recommends \
     && rm -rf /var/lib/apt/lists/*
 
 
+#turtlebot3 and some deps 
+RUN apt-get update && apt-get install -y --no-install-recommends \
+    ros-noetic-joy ros-noetic-teleop-twist-joy \
+    ros-noetic-teleop-twist-keyboard ros-noetic-laser-proc \
+    ros-noetic-rgbd-launch ros-noetic-rosserial-arduino \
+    ros-noetic-rosserial-python ros-noetic-rosserial-client \
+    ros-noetic-rosserial-msgs ros-noetic-amcl ros-noetic-map-server \
+    ros-noetic-move-base ros-noetic-urdf ros-noetic-xacro \
+    ros-noetic-compressed-image-transport ros-noetic-rqt* ros-noetic-rviz \
+    ros-noetic-gmapping ros-noetic-navigation ros-noetic-interactive-markers \
+    ros-noetic-dynamixel-sdk ros-noetic-turtlebot3-msgs ros-noetic-turtlebot3 \
+    ros-noetic-turtlebot3-gazebo \
+    && rm -rf /var/lib/apt/lists/*
+
+
 #install terminator
 #RUN apt-get update && apt-get install -y  software-properties-common \
 #    && add-apt-repository ppa:mattrica-terminator \
-RUN apt-get update && apt-get install -y --no-install-recommends \
+RUN DEBIAN_FRONTEND=noninteractive apt-get update && apt-get install -y --no-install-recommends \
     terminator net-tools iputils-ping vim-gtk3 \
     && rm -rf /var/lib/apt/lists/*
 
