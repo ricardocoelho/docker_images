@@ -37,21 +37,15 @@ O comando docker build -t TAG_NAME:VERSION DOCKERFILE_PATH cria as imagens:
 
 Criação de imagem contendo ambas instalações do ros1 & 2:
 ```shell
-docker build -t ros1_plus:1.0 ros1_plus
-docker build -t ros1_2:1.0 ros_galactic
-```
-
-Criação da imagem com a instalação do RMF utilizando script (demorado)
-```shell
-cd rmf
-chmod +x create_docker_image.sh
-./create_docker_image.sh
+docker build -t ros1_plus ros1_plus
+docker build -t ros1_2 ros_galactic
+docker build -t rmf rmf
 ```
 
 #### Descrição das Imagens:
-* **ros1_plus** (3.85GB): Tem como base a imagem ros/noetic-desktop-full (informações [aqui](https://github.com/osrf/docker_images) ). Tem a adição de alguns pacotes ros pertinentes para o projeto (verificar a lista no [dockerfile](https://github.com/ricardocoelho/docker_images/blob/main/ros1_plus/Dockerfile) correspondente) e terminator.
-* **ros1_2** (4.14GB): Tem como base a imagem ros1_plus, mais a instalação do ros2 galactic.
-* **rmf** (7.39GB): Tem como base a imagem ros1_2 e a compilação de todo o stack do rmf. (TODO: verificar possibilidade de diminuir o tamanho.)
+* **ros1_plus** (4.12GB): Tem como base a imagem ros/noetic-desktop-full (informações [aqui](https://github.com/osrf/docker_images) ). Tem a adição de alguns pacotes ros pertinentes para o projeto (verificar a lista no [dockerfile](https://github.com/ricardocoelho/docker_images/blob/main/ros1_plus/Dockerfile) correspondente) e terminator.
+* **ros1_2** (4.41GB): Tem como base a imagem ros1_plus, mais a instalação do ros2 galactic.
+* **rmf** (8.57GB): Tem como base a imagem ros1_2 e a compilação de todo o stack do rmf + free_fleet. (TODO: verificar possibilidade de diminuir o tamanho.)
 
 obs: Como as imagens são criadas em layers, o real espaço ocupado no disco é somente o da maior imagem.
 
