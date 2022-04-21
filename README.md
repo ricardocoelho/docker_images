@@ -155,7 +155,7 @@ rocker --devices /dev/dri/card0 --x11 --volume ~/my_ws:/my_ws/  -- ros1_plus:1.0
 
 * Ambiente gráfico no container com acesso privilegiado e compartilhamento de rede com o host (necessário para acessar o RMF panel)
 ```shell 
-rocker --privileged --devices /dev/dri/card0 --x11 --network host --volume ~/my_ws:/my_ws/  -- my_rmf:latest terminator
+rocker --privileged --devices /dev/dri/card0 --x11 --network host --volume ~/my_ws:/my_ws/  -- rmf:latest terminator
 ```
 
 ## Consolidação de um container como Imagem
