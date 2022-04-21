@@ -55,6 +55,7 @@ RUN rosdep install --from-paths src --ignore-src --rosdistro galactic -yr
 RUN source /opt/ros/galactic/setup.bash \
     && colcon build --packages-up-to free_fleet ff_examples_ros2 free_fleet_server_ros2
 
+WORKDIR /root
 ## build rmf
 #RUN source /opt/ros/galactic/setup.bash && cd /root/rmf && \
 #  colcon build --merge-install --install-base /opt/rmf --cmake-args -DCMAKE_BUILD_TYPE=Release
