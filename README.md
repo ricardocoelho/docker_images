@@ -45,14 +45,32 @@ As instruções para isso estão contidas em arquivos com o nome Dockerfile.
 O Dockerfile é um arquivo de script que em geral parte de uma imagem base e executa instruções para criar novas
 imagens.
 
-O comando docker build -t TAG_NAME:VERSION DOCKERFILE_PATH cria as imagens:
+Diretivas do Dockerfile:
+* `RUN`: É a principal diretiva, executa instruções de CLI de forma semelhante a um bash script. Deve-se ter em mente que esses comandos são executados dentro de um ambiente isolado e não na máquina host. Ou seja, um comando de cópia `RUN cp file1 file2` pega o arquivo `file1` do container e copia para `file2` também no container.  
+* `COPY`: Para copiar arquivos da máquina host para o container é necessario o uso de outra diretiva: `COPY pathHost pathContainer`.  
+* `FROM`: Especifica a imagem base a partir de onde as instruções serão executadas.  
+Verifique um [exemplo de dockerfile](https://github.com/ricardocoelho/docker_images/blob/main/ros1_plus/Dockerfile).
+
+
+
+O comando `docker build -t <tag_name>:<tag_version> <dockerfile_path>` cria as imagens
+
+Obs1: O argumento -t define o nome da tag, caso não seja usado, a imagem fica sendo referenciada por `<none>`, o que dificulta algumas tarefas.
+    
+Obs2: Caso nao seja definida uma versão para a tag, por default é definida como `latest`.
 
 Criação de imagem contendo ambas instalações do ros1 & 2:
 ```shell
-docker build -t ros1_plus ros1_plus
-docker build -t ros1_2 ros_galactic
+#cria a imagem ros1_plus:latest contendo o ros noetic e instalação de alguns pacotes adicionais
+docker build -t ros1_plus ros1_plus/
+
+#cria a imagem ros1_2:latest contendo o ros noetic e ros galactic
+docker build -t ros1_2 ros_galactic/
+    
+#cria a imagem rmf:latest contendo o ros noetic, galactic e instalação built from src do rmf e free fleet
 docker build -t rmf rmf
 ```
+    
 
 #### Descrição das Imagens:
 * **ros1_plus** (4.12GB): Tem como base a imagem ros/noetic-desktop-full (informações [aqui](https://github.com/osrf/docker_images) ). Tem a adição de alguns pacotes ros pertinentes para o projeto (verificar a lista no [dockerfile](https://github.com/ricardocoelho/docker_images/blob/main/ros1_plus/Dockerfile) correspondente) e terminator.
@@ -61,9 +79,12 @@ docker build -t rmf rmf
 
 obs: Como as imagens são criadas em layers, uma sobre a outra, o real espaço ocupado no disco é somente o da maior imagem.
 
+Para pular o tutorial e ver direto as instruções para rodar o container com suporte gráfico, consulte a seção [Execução com suporte gráfico](https://github.com/ricardocoelho/docker_images/edit/main/README.md#execu%C3%A7%C3%A3o-com-suporte-gr%C3%A1fico)
+
 ### Listando imagens criadas:
 ```shell
 docker image ls
+# -- OR --
 docker images
 ```
 
@@ -85,9 +106,11 @@ Para iniciar a execução de um container, utiliza-se o comando docker run:
 ```shell
 docker run -it ros1_plus:1.0 /bin/bash
 ```
-O comando acima inicia a execução de um container a partir da imagem ros1_plus, executando o comando de terminal bash.
--i: conecta ao stdin
+O comando acima inicia a execução de um container a partir da imagem ros1_plus, executando o comando de terminal bash.  
+-i: conecta ao stdin<br/>
 -t: 'pseudo terminal'
+
+Obs: Caso a versão da tag não seja informada, é procurada a versão `latest` nos registros do docker.
 
 
 #### Listando containers em execução:
@@ -153,7 +176,7 @@ rocker --nvidia --x11 --volume ~/my_ws:/my_ws/  -- ros1_plus:1.0 terminator
 rocker --devices /dev/dri/card0 --x11 --volume ~/my_ws:/my_ws/  -- ros1_plus:1.0 terminator
 ```
 
-* Ambiente gráfico no container com acesso privilegiado e compartilhamento de rede com o host (necessário para acessar o RMF panel)
+* Ambiente gráfico no container com acesso privilegiado e compartilhamento de rede com o host (necessário para acessar o RMF panel pelo browser no host)
 ```shell 
 rocker --privileged --devices /dev/dri/card0 --x11 --network host --volume ~/my_ws:/my_ws/  -- rmf:latest terminator
 ```
